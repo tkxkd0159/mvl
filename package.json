@@ -1,0 +1,32 @@
+{
+  "name": "mvl",
+  "version": "1.0.0",
+  "description": "MVL backend",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "ts-node ./src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkxkd0159/mvl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/tkxkd0159/mvl/issues"
+  },
+  "homepage": "https://github.com/tkxkd0159/mvl#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.10",
+    "ts-node": "^10.4.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2"
+  }
+}
