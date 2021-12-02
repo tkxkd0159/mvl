@@ -1,1 +1,1 @@
-export {default as oracleC} from './oracle_control'
+export * from './oracle_control'
