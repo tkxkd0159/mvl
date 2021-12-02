@@ -1,8 +1,8 @@
 import express from "express"
-import {cors, limiter} from "./middlewares"
+import {cors, limiter} from "./middleware"
 import {ReqErrHandler} from './utils'
-import {config} from './config/config'
-import routesV1 from './routes'
+import {config} from './config'
+import routesV1 from './route'
 
 const app = express()
 

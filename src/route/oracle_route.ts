@@ -1,5 +1,5 @@
 import express from 'express'
-import { oracleC } from '../controllers'
+import { oracleC } from '../controller'
 
 const router = express.Router();
 

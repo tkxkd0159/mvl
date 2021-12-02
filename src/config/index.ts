@@ -19,7 +19,7 @@ const envSchema = Joi.object()
 
 const { value: envVars, error } = envSchema.validate(process.env)
 if (error) {
-    throw new Error(`${error}`)
+    throw new Error(`${error} \n * Modify your environment schema`)
 }
 
 const config = {

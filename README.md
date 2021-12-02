@@ -1,4 +1,6 @@
-![](https://img.shields.io/badge/nodejs-v16.3.0-red)
+![](https://img.shields.io/badge/Nodejs-v16.3.0-red)
+![](https://img.shields.io/badge/MongoDB-v5.0.4-blue)
+![](https://img.shields.io/badge/Redis-v6.2.6-blue)  
 
 `v1/oracle/mvl`
 
