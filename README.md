@@ -10,6 +10,11 @@ winston(logger), joi(scheme validation)
 jest, supertest, faker, nodemon
 ```
 psql -U ljsku -d testdb
+npx pm2 start pm2-app.json --name oracle
+pm2 list
+pm2 kill
+pm2 stop all
+pm2 restart all
 ```
 
 ## Structure

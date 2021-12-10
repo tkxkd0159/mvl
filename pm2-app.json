@@ -1,0 +1,17 @@
+{
+    "apps": [
+      {
+        "name": "Oracle API",
+        "script": "npm",
+        "args": "start"
+      },
+      {
+        "name": "Price Watcher",
+        "script": "dist/watcher.js",
+        "watch": false,
+        "env": {
+          "NODE_ENV": "production"
+        }
+            }
+    ]
+  }
