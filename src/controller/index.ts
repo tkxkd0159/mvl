@@ -1,1 +1,1 @@
-export * from './oracle_control'
+export * as oracle from './oracle_control'

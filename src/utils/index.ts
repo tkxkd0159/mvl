@@ -36,7 +36,10 @@ function getTime(scope: string) {
         return tmp_y + tmp_m + tmp_d
     } else if (scope === "hour") {
         return tmp_y + tmp_m + tmp_d + tmp_h
-    } else {
+    } else if (scope === "minute") {
+        return tmp_y + tmp_m + tmp_d + tmp_h + tmp_mm
+    }
+    else {
         return tmp_y + tmp_m + tmp_d + tmp_h + tmp_mm + tmp_s
     }
 

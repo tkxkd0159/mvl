@@ -8,6 +8,9 @@ winston(logger), joi(scheme validation)
 
 ## Test
 jest, supertest, faker, nodemon
+```
+psql -U ljsku -d testdb
+```
 
 ## Structure
 Excute all processes via `pm2`

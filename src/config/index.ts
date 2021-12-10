@@ -7,8 +7,9 @@ denv.config({ path: path.join(__dirname, '../../.env') });
 const envSchema = Joi.object()
 .keys({
     NODE_ENV: Joi.string().valid("production", "development", "test").required(),
-    PORT: Joi.number().default(3000),
+    PORT: Joi.number().default(80),
     MONGODB_URL: Joi.string().required(),
+
     SMTP_HOST: Joi.string(),
     SMTP_PORT: Joi.number().description('port to connect to the email server'),
     SMTP_USERNAME: Joi.string(),
@@ -28,7 +29,6 @@ const config = {
     mongoose: {
         url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
         options: {
-            useCreateIndex: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000,

@@ -1,38 +1,57 @@
-const mongoose = require('mongoose');
-const app = require('./app');
-const config = require('./config/config');
-const logger = require('./config/logger');
+import mongoose from "mongoose";
+import {createClient} from "redis";
 
-let server;
-mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
-  logger.info('Connected to MongoDB');
-  server = app.listen(config.port, () => {
-    logger.info(`Listening to port ${config.port}`);
-  });
-});
+import app from "./app";
+import { config } from "./config";
+
+
+let server: any;
+let redisC: any;
+mongoose
+    .connect(config.mongoose.url, config.mongoose.options)
+    .then(() => {
+        console.log("Connected to MongoDB");
+
+    })
+    .then(() => {
+        server = app.listen(config.port, () => {
+            console.log(`Listening to port ${config.port}`);
+        });
+    })
+    .catch((e) => {
+        console.log("Init ERROR : ", e)
+    })
 
 const exitHandler = () => {
-  if (server) {
-    server.close(() => {
-      logger.info('Server closed');
-      process.exit(1);
+    if (server) {
+        server.close(() => {
+            process.exit(1);
+        });
+    } else {
+        process.exit(1);
+    }
+};
+
+const unexpectedErrorHandler = (error: Error) => {
+    console.error(error);
+    exitHandler();
+};
+
+let redisState: boolean = true;
+(async function(){
+    redisC = createClient();
+    redisC.on("error", (err: Error) => {
+        redisState = false;
+        console.log("RedisDB is not available")
     });
-  } else {
-    process.exit(1);
-  }
-};
+    await redisC.connect();
+    console.log("Connected to RedisDB");
+})();
 
-const unexpectedErrorHandler = (error) => {
-  logger.error(error);
-  exitHandler();
-};
+process.on("uncaughtException", unexpectedErrorHandler);
+process.on("unhandledRejection", unexpectedErrorHandler);
 
-process.on('uncaughtException', unexpectedErrorHandler);
-process.on('unhandledRejection', unexpectedErrorHandler);
-
-process.on('SIGTERM', () => {
-  logger.info('SIGTERM received');
-  if (server) {
-    server.close();
-  }
-});
+export {
+    redisC,
+    redisState
+}

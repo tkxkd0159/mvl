@@ -1,10 +1,10 @@
 import express from 'express'
-import {getMVLprice} from '../controller'
+import {oracle as o} from '../../controller'
 
 const router = express.Router();
 
 router
     .route('/mvl')
-    .get(getMVLprice)
+    .get(o.getMVLprice)
 
 export default router

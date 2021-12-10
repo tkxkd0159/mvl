@@ -1,17 +1,9 @@
 import express from 'express'
-import oracleR from './oracle_route'
 
-const router = express.Router()
+const router = express.Router();
 
-const subRoutes = [
-    {
-        path: '/oracle',
-        route: oracleR
-    }
-]
+router.get('/', function (req, res) {
+    res.send('MVL Oracle API')
+  });
 
-subRoutes.forEach((sub) => {
-    router.use(sub.path, sub.route)
-})
-
-export default router
+  export default router
