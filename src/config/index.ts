@@ -2,7 +2,11 @@ import denv from "dotenv"
 import path from "path"
 import Joi from "joi"
 
-denv.config({ path: path.join(__dirname, '../../.env') });
+if (process.env.NODE_ENV === 'production'){
+    denv.config({ path: path.join(__dirname, '../../.env') });
+} else {
+    denv.config({ path: path.join(__dirname, '../../.test.env') });
+}
 
 const envSchema = Joi.object()
 .keys({
