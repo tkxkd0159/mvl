@@ -34,7 +34,7 @@ const getMVLpriceAfter = function (sec: number) {
         });
     console.log(" * Estabilished MongoDB connection for watcher")
     const redisClient = createClient()
-    redisClient.on('error', (err) => console.log('Redis Client Error', err))
+    redisClient.on('error', (err) => console.log('Redis Server Error'))
     await redisClient.connect()
     console.log(" * Estabilished Redis connection for watcher")
 
