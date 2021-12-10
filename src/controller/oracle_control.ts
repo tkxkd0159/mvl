@@ -6,7 +6,6 @@ import {redisC, redisState} from '../index'
 
 const getMVLprice = ash(async (req, res) => {
     try {
-        console.log(redisState);
         if (redisState){
             let mvlPrice = await redisC.sendCommand(["LINDEX", "20211202", "0"]);
             res.status(200).send({"Description": "Get MVL price from cache",

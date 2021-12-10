@@ -3,6 +3,7 @@ import {createClient} from "redis";
 
 import app from "./app";
 import { config } from "./config";
+import logger from './config/logger';
 
 
 let server: any;
@@ -42,7 +43,7 @@ let redisState: boolean = true;
     redisC = createClient();
     redisC.on("error", (err: Error) => {
         redisState = false;
-        console.log("RedisDB is not available")
+        logger.error("RedisDB is not available")
     });
     await redisC.connect();
     console.log("Connected to RedisDB");
