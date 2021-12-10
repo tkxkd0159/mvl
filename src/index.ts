@@ -1,27 +1,26 @@
 import mongoose from "mongoose";
-import {createClient} from "redis";
+import { createClient } from "redis";
 
 import app from "./app";
 import { config } from "./config";
-import logger from './config/logger';
-
+import logger from "./config/logger";
 
 let server: any;
-let redisC: any;
 mongoose
     .connect(config.mongoose.url, config.mongoose.options)
     .then(() => {
         console.log("Connected to MongoDB");
-
     })
     .then(() => {
-        server = app.listen(config.port, () => {
-            console.log(`Listening to port ${config.port}`);
-        });
+        if (process.env.NODE_ENV !== "test") {
+            server = app.listen(config.port, () => {
+                console.log(`Listening to port ${config.port}`);
+            });
+        }
     })
     .catch((e) => {
-        console.log("Init ERROR : ", e)
-    })
+        console.log("Init ERROR : ", e);
+    });
 
 const exitHandler = () => {
     if (server) {
@@ -39,12 +38,14 @@ const unexpectedErrorHandler = (error: Error) => {
 };
 
 let redisState: boolean = true;
-(async function(){
+let redisC: any;
+(async function () {
     redisC = createClient();
     redisC.on("error", (err: Error) => {
         redisState = false;
-        logger.error("RedisDB is not available")
+        logger.error("RedisDB is not available");
     });
+
     await redisC.connect();
     console.log("Connected to RedisDB");
 })();
@@ -52,7 +53,4 @@ let redisState: boolean = true;
 process.on("uncaughtException", unexpectedErrorHandler);
 process.on("unhandledRejection", unexpectedErrorHandler);
 
-export {
-    redisC,
-    redisState
-}
+export { redisC, redisState };
