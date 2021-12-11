@@ -6,6 +6,7 @@
 
 winston(logger), joi(scheme validation)
 
+
 ## Test
 jest, supertest, faker, nodemon
 ```
@@ -23,3 +24,11 @@ Excute all processes via `pm2`
 Get oracle price from Redis
 ### 2) Watch server
 Get oracle price and Save to Redis per 2 seconds. Save average price in MongoDB periodically (Write-back policy)
+
+# Features
+* DB 세팅 및 데이터 저장(Redis (단주기) -> PostgreSQL(긴주기) 순으로 백업)
+* 쿼리 자동화(fail-safe)
+* pm2 사용해서 watcher, API server 프로세스 분리 실행
+* DOS 방지를 위한 API rate limit 설정
+* 범용 서버 에러 처리(Graceful shutdown)
+* 장애상황 트랙킹을 위한 logger 설정 
