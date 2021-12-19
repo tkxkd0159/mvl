@@ -7,4 +7,8 @@ router
     .route('/mvl')
     .get(o.getMVLprice)
 
+router
+    .route('/auction')
+    .get(o.getFinalPrice)
+
 export default router

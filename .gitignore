@@ -1,3 +1,7 @@
+mytest*
+.bsc.env
+abi
+.op.env
 # Logs
 log
 *.log

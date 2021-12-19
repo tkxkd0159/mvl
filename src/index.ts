@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
-import { createClient } from "redis";
 
 import app from "./app";
 import { config } from "./config";
-import logger from "./config/logger";
+import { opLogger, errorLogger } from "./config/logger";
+import {redisConn} from "./model"
 
-let server: any;
+let server: any = undefined;
 mongoose
     .connect(config.mongoose.url, config.mongoose.options)
     .then(() => {
-        console.log("Connected to MongoDB");
+        opLogger.info("[API] Connected to MongoDB");
+        return redisConn()
     })
     .then(() => {
         if (process.env.NODE_ENV !== "test") {
@@ -19,7 +20,7 @@ mongoose
         }
     })
     .catch((e) => {
-        console.log("Init ERROR : ", e);
+        errorLogger.info(`[API] Initial error : ${e}`);
     });
 
 const exitHandler = () => {
@@ -33,24 +34,11 @@ const exitHandler = () => {
 };
 
 const unexpectedErrorHandler = (error: Error) => {
-    console.error(error);
+    errorLogger.error(`[API] ${error}`);
     exitHandler();
 };
 
-let redisState: boolean = true;
-let redisC: any;
-(async function () {
-    redisC = createClient();
-    redisC.on("error", (err: Error) => {
-        redisState = false;
-        logger.error("RedisDB is not available");
-    });
 
-    await redisC.connect();
-    console.log("Connected to RedisDB");
-})();
 
 process.on("uncaughtException", unexpectedErrorHandler);
 process.on("unhandledRejection", unexpectedErrorHandler);
-
-export { redisC, redisState };

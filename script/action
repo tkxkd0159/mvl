@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "Which action do you want? (1: Create new auction, 2: Distribute NFT, 3: Make preset for test)"
+read actOpt
+
+case $actOpt in
+    1)
+        echo "Create new auction (Execute time : $(date))"
+        node ./script/1_create-auction.js
+        ;;
+    2)
+        echo "Are you sure to execute NFT distribution script? (yes/no)"
+        read SIG
+        if [[ $SIG == "yes" ]]
+        then
+            echo "Starting NFT distribution"
+            node ./script/2_nft-dist.js
+        else
+            echo "NFT distribution was cancelled"
+        fi
+        ;;
+    3)
+        echo "Approve MVL, set MVL price & criteria(MVL), place bids for test auction contract"
+        node ./script/3_preset.js
+        ;;
+    *)
+        echo "Input is wrong"
+        ;;
+esac

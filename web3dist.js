@@ -1,1 +1,0 @@
-console.log("I am web3 dist")

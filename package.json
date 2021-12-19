@@ -6,9 +6,13 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest",
     "build": "tsc",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "dev": "cross-env NODE_ENV=development npm run build:live",
-    "start": "cross-env NODE_ENV=production node dist/index.js"
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'cross-env NODE_ENV=development ts-node' src/index.ts",
+    "dev": "cross-env NODE_ENV=development npm run build:live & (cross-env NODE_ENV=development ts-node src/watcher.ts)",
+    "watcher": "cross-env NODE_ENV=production ts-node src/watcher.ts",
+    "api": "ts-node src/index.ts",
+    "start": "pm2 start pm2-app.json",
+    "kill": "pm2 kill",
+    "restart": "pm2 restart all"
   },
   "repository": {
     "type": "git",
@@ -25,10 +29,12 @@
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "ethers": "^5.5.2",
     "express": "^4.17.1",
     "express-async-handler": "^1.2.0",
     "express-rate-limit": "^5.5.1",
     "joi": "^17.4.2",
+    "moment": "^2.29.1",
     "mongoose": "^6.0.14",
     "pg": "^8.7.1",
     "pm2": "^5.1.2",
@@ -45,6 +51,7 @@
     "@types/node": "^16.11.10",
     "@types/supertest": "^2.0.11",
     "cross-env": "^7.0.3",
+    "eslint": "^8.4.1",
     "faker": "^5.5.3",
     "jest": "^27.4.0",
     "nodemon": "^2.0.15",
